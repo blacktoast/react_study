@@ -9,7 +9,6 @@ function Counter() {
       return a + 1;
     });
   };
-
   const onDecrease = () => {
     console.log(setNumber());
     setNumber((number) => number - 1);
