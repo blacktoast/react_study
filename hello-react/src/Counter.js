@@ -13,7 +13,6 @@ function Counter() {
     console.log(setNumber());
     setNumber((number) => number - 1);
   };
-
   return (
     <div>
       <h1>{number}</h1>
