@@ -14,6 +14,7 @@ const App = () => {
 
   const onChange = (e) => {
     const { name, value } = e.target;
+    console.log(name, value);
     setInputs({
       ...inputs,
       [name]: value,
@@ -25,30 +26,48 @@ const App = () => {
       id: 1,
       username: "velopert",
       email: "public.velopert@gmail.com",
+      active: true,
     },
     {
       id: 2,
       username: "tester",
       email: "tester@example.com",
+      active: false,
     },
     {
       id: 3,
       username: "liz",
       email: "liz@example.com",
+      active: false,
     },
   ]);
 
   const nextId = useRef(4);
-
+  const onRemove = (id) => {
+    setUsers(users.filter((user) => user.id !== id));
+  };
+  const onToggle = (id) => {
+    setUsers(
+      users.map((user) => {
+        return user.id === id ? { ...user, active: !user.active } : user;
+      })
+    );
+  };
   const onCreate = () => {
     // 나중에 구현 할 배열에 항목 추가하는 로직
     // ...
-
+    const user = {
+      id: nextId.current,
+      username,
+      email,
+    };
+    setUsers([...users, user]);
     setInputs({
       username: "",
       email: "",
     });
     nextId.current += 1;
+    console.log(nextId.current);
   };
 
   return (
@@ -59,7 +78,7 @@ const App = () => {
         onChange={onChange}
         onCreate={onCreate}
       />
-      <UserList users={users} />;
+      <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
     </>
   );
 };
