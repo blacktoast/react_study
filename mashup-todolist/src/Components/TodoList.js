@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useTodoState } from "../TodoContext";
 import TodoItem from "./TodoItem";
 
 const TodoListBlock = styled.div`
@@ -9,12 +10,20 @@ const TodoListBlock = styled.div`
   overflow-y: auto;
 `;
 function TodoList(props) {
+  const todos = useTodoState();
+  console.log(todos);
   return (
     <TodoListBlock>
-      <TodoItem text="컴포넌트 생성" done={true} />
-      <TodoItem text="컴포넌트 생성" done={false} />
-      <TodoItem text="컴포넌트 생성" done={true} />
-      <TodoItem text="컴포넌트 생성" done={true} />
+      {todos.map((todo) => {
+        return (
+          <TodoItem
+            text={todo.text}
+            done={todo.done}
+            key={todo.id}
+            id={todo.id}
+          ></TodoItem>
+        );
+      })}
     </TodoListBlock>
   );
 }
